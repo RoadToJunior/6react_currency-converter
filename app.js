@@ -8,6 +8,15 @@ const Cash = (props) => {
   );
 };
 
+const calculator = this.currencies.map((currency) => (
+  <Cash
+    key={currency.id}
+    name={currency.name}
+    ratio={currency.ratio}
+    title={currency.title}
+  />
+));
+
 class ExchangeCounter extends React.Component {
   state = {
     amount: 0,
@@ -40,6 +49,7 @@ class ExchangeCounter extends React.Component {
             onChange={this.handleNumberChange}
           />
         </label>
+        {calculator}
       </div>
     );
   }
