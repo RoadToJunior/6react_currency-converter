@@ -1,16 +1,10 @@
-const DollarCurrency = (props) => {
+const Cash = (props) => {
+  const cash = (props.pln / props.value).toFixed(2);
   return (
-    <>
-      <p>$$$:{(props.pln / props.value).toFixed(2)}</p>
-    </>
-  );
-};
-
-const EuroCurrency = (props) => {
-  return (
-    <>
-      <p>Euro:{(props.pln / props.value).toFixed(2)}</p>
-    </>
+    <p>
+      {props.title}
+      {cash <= 0 ? "Podaj ilość złotówek!" : cash}
+    </p>
   );
 };
 
@@ -24,6 +18,17 @@ class ExchangeCounter extends React.Component {
     });
   };
 
+  currencies = [
+    {
+      id: 1,
+      name: "dollar",
+      ratio: 3.6,
+      title: "Wartość w dolarach:",
+    },
+    { id: 2, name: "euro", ratio: 4.2, title: "Wartość w euroskach:" },
+    { id: 3, name: "funt", ratio: 5.1, title: "Wartość w funtach:" },
+  ];
+
   render() {
     return (
       <div className="">
@@ -35,8 +40,6 @@ class ExchangeCounter extends React.Component {
             onChange={this.handleNumberChange}
           />
         </label>
-        <DollarCurrency value={4.09} pln={this.state.amount} />
-        <EuroCurrency value={4.47} pln={this.state.amount} />
       </div>
     );
   }
