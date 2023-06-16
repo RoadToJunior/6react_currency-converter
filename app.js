@@ -1,7 +1,7 @@
 const DollarCurrency = (props) => {
   return (
     <>
-      <p>$$$:{props.value * props.pln}</p>
+      <p>$$$:{(props.pln / props.value).toFixed(2)}</p>
     </>
   );
 };
@@ -9,18 +9,18 @@ const DollarCurrency = (props) => {
 const EuroCurrency = (props) => {
   return (
     <>
-      <p>Euro:{props.value * props.pln}.</p>
+      <p>Euro:{(props.pln / props.value).toFixed(2)}</p>
     </>
   );
 };
 
 class ExchangeCounter extends React.Component {
   state = {
-    number: 0,
+    amount: 0,
   };
   handleNumberChange = (e) => {
     this.setState({
-      number: e.target.value,
+      amount: e.target.value,
     });
   };
 
@@ -29,10 +29,14 @@ class ExchangeCounter extends React.Component {
       <div className="">
         <label>
           Wpisz kwotę w złotówkach
-          <input type="number" onChange={this.handleNumberChange} />
+          <input
+            type="number"
+            value={this.state.amount}
+            onChange={this.handleNumberChange}
+          />
         </label>
-        <DollarCurrency value={4.09} pln={this.state.number} />
-        <EuroCurrency value={4.47} pln={this.state.number} />
+        <DollarCurrency value={4.09} pln={this.state.amount} />
+        <EuroCurrency value={4.47} pln={this.state.amount} />
       </div>
     );
   }
