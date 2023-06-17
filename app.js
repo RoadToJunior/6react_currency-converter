@@ -30,8 +30,15 @@ class ExchangeCounter extends React.Component {
       amount: e.target.value,
     });
   };
+
+  handleSelect = (e) => {
+    this.setState({
+      product: e.target.value,
+    });
+  };
+
   render() {
-    const { amount } = this.state;
+    const { amount, product } = this.state;
 
     const calculators = this.currencies.map((currency) => (
       <Cash
@@ -46,7 +53,8 @@ class ExchangeCounter extends React.Component {
     return (
       <div className="">
         <label>
-          <select value={this.state.product}>
+          Wybierz produkt:
+          <select value={product} onChange={this.handleSelect}>
             <option value="electricity">prąd</option>
             <option value="gas">benzyna</option>
             <option value="oranges">pomarańcze</option>
