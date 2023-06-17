@@ -1,30 +1,17 @@
 const Cash = (props) => {
-  const cash = (props.pln / props.value).toFixed(2);
+  const value = (props.cash / props.ratio).toFixed(2);
   return (
     <p>
       {props.title}
-      {cash <= 0 ? "Podaj ilość złotówek!" : cash}
+      {props.cash <= 0 ? "Podaj ilość złotówek!" : value}
     </p>
   );
 };
 
-const calculator = this.currencies.map((currency) => (
-  <Cash
-    key={currency.id}
-    name={currency.name}
-    ratio={currency.ratio}
-    title={currency.title}
-  />
-));
-
 class ExchangeCounter extends React.Component {
   state = {
     amount: 0,
-  };
-  handleNumberChange = (e) => {
-    this.setState({
-      amount: e.target.value,
-    });
+    product: "electricity",
   };
 
   currencies = [
@@ -38,18 +25,43 @@ class ExchangeCounter extends React.Component {
     { id: 3, name: "funt", ratio: 5.1, title: "Wartość w funtach:" },
   ];
 
+  handleNumberChange = (e) => {
+    this.setState({
+      amount: e.target.value,
+    });
+  };
   render() {
+    const { amount } = this.state;
+
+    const calculators = this.currencies.map((currency) => (
+      <Cash
+        key={currency.id}
+        name={currency.name}
+        ratio={currency.ratio}
+        title={currency.title}
+        cash={amount}
+      />
+    ));
+
     return (
       <div className="">
+        <label>
+          <select value={this.state.product}>
+            <option value="electricity">prąd</option>
+            <option value="gas">benzyna</option>
+            <option value="oranges">pomarańcze</option>
+          </select>
+        </label>
+        <br />
         <label>
           Wpisz kwotę w złotówkach
           <input
             type="number"
-            value={this.state.amount}
+            value={amount}
             onChange={this.handleNumberChange}
           />
         </label>
-        {calculator}
+        {calculators}
       </div>
     );
   }
