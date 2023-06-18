@@ -14,16 +14,23 @@ class ExchangeCounter extends React.Component {
     product: "electricity",
   };
 
-  currencies = [
-    {
-      id: 1,
-      name: "dollar",
-      ratio: 3.6,
-      title: "Wartość w dolarach:",
+  static defaultProps = {
+    currencies: [
+      {
+        id: 1,
+        name: "dollar",
+        ratio: 3.6,
+        title: "Wartość w dolarach:",
+      },
+      { id: 2, name: "euro", ratio: 4.2, title: "Wartość w euroskach:" },
+      { id: 3, name: "pound", ratio: 5.1, title: "Wartość w funtach:" },
+    ],
+    price: {
+      electricity: 0.51,
+      gas: 6.7,
+      oranges: 4.5,
     },
-    { id: 2, name: "euro", ratio: 4.2, title: "Wartość w euroskach:" },
-    { id: 3, name: "funt", ratio: 5.1, title: "Wartość w funtach:" },
-  ];
+  };
 
   handleNumberChange = (e) => {
     this.setState({
@@ -38,9 +45,9 @@ class ExchangeCounter extends React.Component {
   };
 
   insertSuffix(product) {
-    if (product === "electricity") return "kWh";
-    else if (product === "gas") return "litrów";
-    else if (product === "oranges") return "kilogramów";
+    if (product === "electricity") return <em>kWh</em>;
+    else if (product === "gas") return <em>litrów</em>;
+    else if (product === "oranges") return <em>kilogramów</em>;
     else return null;
   }
   render() {
