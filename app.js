@@ -37,6 +37,12 @@ class ExchangeCounter extends React.Component {
     });
   };
 
+  insertSuffix(product) {
+    if (product === "electricity") return "kWh";
+    else if (product === "gas") return "litrów";
+    else if (product === "oranges") return "kilogramów";
+    else return null;
+  }
   render() {
     const { amount, product } = this.state;
 
@@ -68,6 +74,7 @@ class ExchangeCounter extends React.Component {
             value={amount}
             onChange={this.handleNumberChange}
           />
+          {this.insertSuffix(this.state.product)}
         </label>
         {calculators}
       </div>
